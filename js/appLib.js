@@ -9,8 +9,8 @@ var empFirstName;
 var successSyncStatusBE =false;
 var successSyncStatusTR =false;
 
-var successMsgForCurrency = "Currency synchronized successfully.";
-var errorMsgForCurrency = "Currency not synchronized successfully.";
+var successMsgForCurrency = "நாணய ஒத்திசைக்கப்படாமல்.";
+var errorMsgForCurrency = "நாணய வெற்றிகரமாக ஒருங்கிணைக்கப்படும் இல்லை.";
 
 var app = {
     // Application Constructor
@@ -150,7 +150,7 @@ if (window.openDatabase) {
     });
 
 } else {
-    alert("WebSQL is not supported by your browser!");
+    alert("வலை SQL உங்கள் உலாவியில் ஆதரவு இல்லை!");
 }
 
 //function to remove a employeeDetails from the database, passed the row id as it's only parameter
@@ -234,7 +234,7 @@ function saveBusinessDetails(status){
 					j('#expenseName').select2('data', '');
 					//j('#currency').select2('data', '');
 					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "செலவுகள் வெற்றிகரமாக சேர்க்கப்பட்டுள்ளது.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					resetImageData();
 					//createBusinessExp();
@@ -247,7 +247,7 @@ function saveBusinessDetails(status){
 			return false;
 		}
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
 }
 
@@ -349,7 +349,7 @@ function saveTravelSettleDetails(status){
 					smallImageTS.style.display = 'none';
 					smallImageTS.src = "";
 					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "செலவுகள் வெற்றிகரமாக சேர்க்கப்பட்டுள்ளது.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					resetImageData();
 				}else{
@@ -361,7 +361,7 @@ function saveTravelSettleDetails(status){
 			return false;
 		}
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
 }
 
@@ -385,10 +385,10 @@ function fetchExpenseClaim() {
 	var rowThead = j("<thead></thead>").appendTo(mytable);
 	var rowTh = j('<tr></tr>').attr({ class: ["test"].join(' ') }).appendTo(rowThead);
 	
-	j('<th></th>').text("Date").appendTo(rowTh);
-	j('<th></th>').text("Expense Name").appendTo(rowTh);
-	j('<th></th>').text("Narration From/To Loc").appendTo(rowTh); 	
-	j('<th></th>').text("Amt").appendTo(rowTh);
+	j('<th></th>').text("தேதி").appendTo(rowTh);
+	j('<th></th>').text("செலவு பெயர்").appendTo(rowTh);
+	j('<th></th>').text("/ இருப்பிடம் இருந்து வேண்டும் கதை").appendTo(rowTh); 	
+	j('<th></th>').text("தொகை").appendTo(rowTh);
 	var cols = new Number(5);
 	 
 	mydb.transaction(function(t) {
@@ -473,11 +473,11 @@ function fetchExpenseClaim() {
 	var rowThead = j("<thead></thead>").appendTo(mytable);
 	var rowTh = j('<tr></tr>').attr({ class: ["test"].join(' ') }).appendTo(rowThead);
 	
-	j('<th></th>').text("Date").appendTo(rowTh);
-	j('<th></th>').text("Expense Name").appendTo(rowTh);
-	j('<th></th>').text("Amt").appendTo(rowTh);
-	j('<th></th>').text("cityTown").appendTo(rowTh);
-	j('<th></th>').text("Narration").appendTo(rowTh);
+	j('<th></th>').text("தேதி").appendTo(rowTh);
+	j('<th></th>').text("செலவு பெயர்").appendTo(rowTh);
+	j('<th></th>').text("தொகை").appendTo(rowTh);
+	j('<th></th>').text("நகரம் டவுன்").appendTo(rowTh);
+	j('<th></th>').text("கதை").appendTo(rowTh);
 	
 	
 	var cols = new Number(4);
@@ -636,20 +636,20 @@ function synchronizeBEMasterData() {
 						}  
 					});
 					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Business Expenses synchronized successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "வியாபார செலவுகள் ஒத்திசைக்கப்படாமல்.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
 				else{
 					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Business Expenses not synchronized successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "வியாபார செலவுகள் வெற்றிகரமாக ஒருங்கிணைக்கப்படும் இல்லை.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
 					
 			  },
 			  error:function(data) {
-				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				 alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 			  }
 			});
 			
@@ -689,12 +689,12 @@ function synchronizeBEMasterData() {
 				
 			},
 			  error:function(data) {
-				alert("Error: Oops something is wrong, Please Contact System Administer");
+				alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 			  }
 				});	
 			
 	} else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
 	
 }
@@ -748,17 +748,17 @@ function synchronizeBEMasterData() {
 						}
 					});
 					
-					document.getElementById("syncSuccessMsg").innerHTML = "Account Head synchronized Successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "கணக்கு தலைமை ஒத்திசைக்கப்படாமல்.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 
 				}else{
 					
-					document.getElementById("syncFailureMsg").innerHTML = "Account Head synchronized Successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "கணக்கு தலைமை ஒத்திசைக்கப்படாமல்.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 				}
 			},		
 			error:function(data) {
-				alert("Error: Oops something is wrong, Please Contact System Administer");
+				alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 			}	
 				
 		});
@@ -799,7 +799,7 @@ function synchronizeBEMasterData() {
 					
 				},
 				  error:function(data) {
-					alert("Error: Oops something is wrong, Please Contact System Administer");
+					alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 				  }
 					});	
 		
@@ -858,7 +858,7 @@ function synchronizeBEMasterData() {
 							}
 						}
 					});
-					document.getElementById("syncFailureMsg").innerHTML = "Category/CityTown Master synchronized successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "வகை / நகரம் டவுன் மாஸ்டர் ஒத்திசைக்கப்படாமல்.";
 				   j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');  
 					mydb.transaction(function (t) {
 					t.executeSql("DELETE FROM travelTypeMst");
@@ -878,18 +878,18 @@ function synchronizeBEMasterData() {
 					
 				}else{
 					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Travel Required master Expenses not synchronized successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "பயண தேவையான மாஸ்டர் செலவுகள் வெற்றிகரமாக ஒருங்கிணைக்கப்படும் இல்லை.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 				}
 			},
 			error:function(data) {
-				alert("Error: Oops something is wrong, Please Contact System Administer");
+				alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 			}
 		});
 		
 				 
 	} else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
  }
  
@@ -901,7 +901,7 @@ function synchronizeBEMasterData() {
 				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 			});
 	} else {
-		alert("db not found, your browser does not support web sql!");
+		alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
 	}
  }
  
@@ -970,7 +970,7 @@ function getCurrencyList(transaction, results) {
 				t.executeSql("SELECT * FROM travelAccountHeadMst where processId=3", [], getTrAccHeadList);
 			});
 	} else {
-		alert("db not found, your browser does not support web sql!");
+		alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
 	}
  }
 
@@ -1130,10 +1130,10 @@ function saveWalletAttachment(status){
             j('#loading_Cat').hide();
         } else {
         	j('#loading_Cat').hide();
-            alert("You must enter inputs!");
+            alert("நீங்கள் உள்ளீடுகள் நுழைய வேண்டும்!");
         }
 	} else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
 }
 
@@ -1147,7 +1147,7 @@ function getExpenseNamesfromDB(accountHeadId){
 			t.executeSql("SELECT * FROM expNameMst where accHeadId="+accountHeadId, [], getExpNameList);
 		});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1159,7 +1159,7 @@ function getExpenseNamesfromDBTravel(travelRequestId){
         	//t.executeSql("SELECT * FROM travelExpenseNameMst where travelAccountHeadId="+accountHeadId, [],fetchTravelExpeseName);
 			});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1170,7 +1170,7 @@ function getStartEndDatefromDBTravel(travelRequestId){
         var result	= t.executeSql("select travelStartDate,travelEndDate from travelRequestDetails where travelRequestId="+travelRequestId, [],fetchTravelStartEndDate);
         	});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1182,7 +1182,7 @@ function getCurrencyDBTravel(travelRequestId){
         	
 			});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1197,7 +1197,7 @@ function onloadTravelSettleData() {
 				t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 			});
 	} else {
-		alert("db not found, your browser does not support web sql!");
+		alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
 	}
  }
  
@@ -1261,7 +1261,7 @@ function fetchTravelDomOrInterDate(transaction, results) {
 		t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 		});
 		} else {
-		alert("db not found, your browser does not support web sql!");
+		alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
 	}
 		}
 	}
@@ -1278,7 +1278,7 @@ function getPerUnitFromDB(expenseNameID){
 			t.executeSql("SELECT * FROM expNameMst where id="+expenseNameID, [], setPerUnitDetails);
 		});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1289,7 +1289,7 @@ function getModecategoryFromDB(expenseNameID){
 			t.executeSql("SELECT * FROM travelExpenseNameMst where id="+expenseNameID, [], setModeCategroyDetails);
 		});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1300,7 +1300,7 @@ function getCategoryFromDB(modeID){
 			t.executeSql("SELECT * FROM travelCategoryMst where travelModeId="+modeID, [], fetchTrvlCategoryList);
 		});
     } else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }	
 }
 
@@ -1337,22 +1337,22 @@ function synchronizeTRForTS() {
 						}						
 					});
 					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Travel Request Details synchronized successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "பயண கோரிக்கை விவரங்கள் ஒத்திசைக்கப்படாமல்.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 				}else{
 					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Travel Required Expenses not synchronized successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "பயண தேவையான செலவுகள் வெற்றிகரமாக ஒருங்கிணைக்கப்படும் இல்லை.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 				}
 					
 			},
 			error:function(data) {
-				alert("Error: Oops something is wrong, Please Contact System Administer");
+				alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
 			}
 		});
 
 	} else {
-        alert("db not found, your browser does not support web sql!");
+        alert("இல்லை டி.பி., உங்கள் உலாவியில் websql ஆதரிக்கவில்லை!");
     }
  }
  
