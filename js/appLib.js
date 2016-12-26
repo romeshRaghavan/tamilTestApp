@@ -1045,6 +1045,32 @@ function setUserSessionDetails(val,url){
 	 window.localStorage.setItem("urlPath",url);
 }
 
+function setUserStatusInLocalStorage(status){
+	window.localStorage.setItem("UserStatus",status);
+}
+function setUrlPathLocalStorage(url){
+	window.localStorage.setItem("urlPath",url);
+}
+function dropAllTableDetails(){
+
+	mydb.transaction(function(t) {
+		t.executeSql("DELETE TABLE currencyMst ");
+		t.executeSql("DELETE TABLE accountHeadMst ");
+		t.executeSql("DELETE TABLE expNameMst");
+		t.executeSql("DELETE TABLE businessExpDetails");
+		t.executeSql("DELETE TABLE walletMst");
+		t.executeSql("DELETE TABLE travelModeMst");
+		t.executeSql("DELETE TABLE travelCategoryMst ");
+		t.executeSql("DELETE TABLE cityTownMst");
+		t.executeSql("DELETE TABLE travelTypeMst");
+		t.executeSql("DELETE TABLE travelAccountHeadMst");
+		t.executeSql("DELETE TABLE travelExpenseNameMst");
+		t.executeSql("DELETE TABLE travelSettleExpDetails");
+		t.executeSql("DELETE TABLE travelRequestDetails");
+	 });
+
+}
+
 function getUserID() {
 	userKey=window.localStorage.getItem("EmployeeId");
 	if(userKey==null) return  "";
