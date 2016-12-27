@@ -557,6 +557,7 @@ function synchronizeBEMasterData() {
 	jsonSentToSync["UnitId"] = window.localStorage.getItem("UnitId");
 	j('#loading_Cat').show();
 	if (mydb) {
+		alert("url   "+window.localStorage.getItem("urlPath").toString())
 		j.ajax({
 			  url: window.localStorage.getItem("urlPath")+"SyncAccountHeadWebService",
 			  type: 'POST',
@@ -1041,8 +1042,9 @@ function setUserSessionDetails(val,url){
 	 window.localStorage.setItem("LastName",val.LastName);
 	 window.localStorage.setItem("GradeID",val.GradeID);
 	 window.localStorage.setItem("BudgetingStatus",val.BudgetingStatus);
-	 window.localStorage.setItem("UnitId",val.UnitId);	
-	 window.localStorage.setItem("urlPath",url);
+	 window.localStorage.setItem("UnitId",val.UnitId);
+	 // alert(url)	
+	 // window.localStorage.setItem("urlPath",url);
 }
 
 function setUserStatusInLocalStorage(status){
@@ -1448,3 +1450,91 @@ function synchronizeTRForTS() {
 			});
    appPageHistory.push(pageRef);
 	}
+
+function synchronizeEAMasterData() {
+	var jsonSentToSync=new Object();	
+	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
+	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
+	jsonSentToSync["GradeId"] = window.localStorage.getItem("GradeID");
+	jsonSentToSync["UnitId"] = window.localStorage.getItem("UnitId");
+	j('#loading_Cat').show();
+	if (mydb) {
+		j.ajax({
+			  url: window.localStorage.getItem("urlPath")+"SyncAccountHeadEAWebService",
+			  type: 'POST',
+			  dataType: 'json',
+			  crossDomain: true,
+			  data: JSON.stringify(jsonSentToSync),
+			  success: function(data) {
+				  if(data.Status=='Success'){
+					mydb.transaction(function (t) {
+					t.executeSql("DELETE FROM accountHeadEAMst");
+					var accountHeadArray = data.AccountHeadArray;
+						if(accountHeadArray != null && accountHeadArray.length > 0){
+							for(var i=0; i<accountHeadArray.length; i++ ){
+								var stateArr = new Array();
+								stateArr = accountHeadArray[i];
+								var acc_head_id = stateArr.Value;
+								var acc_head_name = stateArr.Label;
+								t.executeSql("INSERT INTO accountHeadEAMst (accountHeadId,accHeadName) VALUES (?, ?)", [acc_head_id,acc_head_name]);
+								
+							}
+						}
+					});	
+					  
+					mydb.transaction(function (t) {
+					t.executeSql("DELETE FROM advanceType");
+					  var advanceTypeArray = data.AdvanceTypeArray;
+					  if(advanceTypeArray != null && advanceTypeArray.length > 0){
+							for(var i=0; i<advanceTypeArray.length; i++ ){
+								var stateArr = new Array();
+								stateArr = advanceTypeArray[i];
+								var advTypeId = stateArr.Value;
+								var advTypeName = stateArr.Label;
+													
+								t.executeSql("INSERT INTO advanceType (advancetypeID,advancetype) VALUES ( ?, ?)", [advTypeId,advTypeName]);
+							}
+						}  
+					});
+                      	mydb.transaction(function (t) {
+					t.executeSql("DELETE FROM employeeAdvanceDetails");
+					  var empAdvArray = data.EmpAdvArray;
+					  if(empAdvArray != null && empAdvArray.length > 0){
+							for(var i=0; i<empAdvArray.length; i++ ){
+								var stateArr = new Array();
+								stateArr = empAdvArray[i];
+								var empAdvId = stateArr.Value;
+								var empAdvVoucherNo = stateArr.EmpAdvaucherNo;
+                                var empAdvTitle = stateArr.VoucherTitle;
+                                var empAdvAmount = stateArr.Amount;
+													
+								t.executeSql("INSERT INTO employeeAdvanceDetails (empAdvID,emplAdvVoucherNo,empAdvTitle,Amount) VALUES ( ?, ?, ?, ?)", 
+                                [empAdvId,empAdvVoucherNo,empAdvTitle,empAdvAmount]);
+							}
+						}  
+					});
+                      window.localStorage.setItem("EmpAdvDate",data.EmpAdvDate);
+                      window.localStorage.setItem("DefaultAdvType",data.DefaultAdvType);
+                      window.localStorage.setItem("DefaultAccontHead",data.DefaultAccontHead);
+                      window.localStorage.setItem("DefaultCurrencyName",data.DefaultCurrencyName);
+                      
+					j('#loading_Cat').hide();
+                      
+					document.getElementById("syncSuccessMsg").innerHTML = "பணியாளர் அட்வான்ஸ் ஒத்திசைக்கப்படாமல்.";
+					j('#syncSuccessMsg').hide().fadeIn('slow').delay(800).fadeOut('slow');
+					
+				}
+				else{
+					j('#loading_Cat').hide();
+					document.getElementById("syncFailureMsg").innerHTML = "பணியாளர் அட்வான்ஸ் வெற்றிகரமாக ஒருங்கிணைக்கப்படும் இல்லை.";
+					j('#syncFailureMsg').hide().fadeIn('slow').delay(300).fadeOut('slow');
+					
+				}
+					
+			  },
+			  error:function(data) {
+				 alert("பிழை: அச்சச்சோ ஏதாவது தவறு செய்து அமைப்பை நிர்வகிக்கும் தொடர்பு");
+			  }
+			});
+  }
+}
