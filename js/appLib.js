@@ -557,7 +557,6 @@ function synchronizeBEMasterData() {
 	jsonSentToSync["UnitId"] = window.localStorage.getItem("UnitId");
 	j('#loading_Cat').show();
 	if (mydb) {
-		alert("url   "+window.localStorage.getItem("urlPath").toString())
 		j.ajax({
 			  url: window.localStorage.getItem("urlPath")+"SyncAccountHeadWebService",
 			  type: 'POST',
